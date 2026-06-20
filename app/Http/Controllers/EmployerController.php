@@ -26,8 +26,8 @@ class EmployerController extends Controller
      */
     public function create()
     {
-        if ($employer = Employer::where('user_id',auth()->user()->id)->first()) {
-            redirect()->route('employer.edit',['id'=> $employer->id]);
+        if ($employers = Employer::where('user_id',auth()->user()->id)->first()) {
+            redirect()->route('employer.edit',['id'=> $employers->id]);
         }
         return view('employer.create');
     }
