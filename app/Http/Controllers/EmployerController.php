@@ -13,7 +13,12 @@ class EmployerController extends Controller
      */
     public function index()
     {
-        //
+        $employers = Employer::where('user_id', auth()->user()->id)->first();
+        if (!$employers) {
+            return redirect()->route('employer.create')
+                ->with('error', 'Profile not found. Please create one.');
+        }
+        return view('employer.index', compact('employers'));
     }
 
     /**
