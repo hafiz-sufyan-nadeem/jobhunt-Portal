@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Employer;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class EmployerController extends Controller
@@ -19,6 +21,9 @@ class EmployerController extends Controller
      */
     public function create()
     {
+        if ($employer = Employer::where('user_id',auth()->user()->id)->first()) {
+            redirect()->route('employer.edit',['id'=> $employer->id]);
+        }
         return view('employer.create');
     }
 
@@ -27,7 +32,15 @@ class EmployerController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validate = $request->validate([
+            'company_name' => 'required',
+            'city' => 'required',
+            'description' => 'required',
+        ]);
+        $validate ['user_id'] = auth()->user()->id;
+        Employer::create($validate);
+
+        return redirect('/employer');
     }
 
     /**
@@ -41,17 +54,31 @@ class EmployerController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Employer $employer)
     {
-        //
+        if ($employer->user_id !== auth()->id()) {
+            abort(403);
+        }
+
+        return view('employer.edit', compact('employer'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Employer $employer)
     {
-        //
+        $data = $request->validate([
+            'company_name' => 'required',
+            'city' => 'required',
+            'description' => 'required',
+        ]);
+
+        $employer->update($data);
+
+        return redirect()
+            ->route('employer.index')
+            ->with('success', 'Employer updated successfully');
     }
 
     /**

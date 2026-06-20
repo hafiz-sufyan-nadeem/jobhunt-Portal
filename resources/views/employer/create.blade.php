@@ -1,6 +1,5 @@
-<form action="{{ route('employer.create') }}" method="get">
+<form action="{{ route('employer.store') }}" method="post">
     @csrf
-
     <label>Company Name</label>
     <input type="text" name="company_name">
 
