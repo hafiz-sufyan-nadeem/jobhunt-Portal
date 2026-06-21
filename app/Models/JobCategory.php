@@ -9,5 +9,8 @@ class JobCategory extends Model
     protected $fillable = [
         'name'
     ];
-
+    public function jobs()
+    {
+        return $this->hasMany(JobListing::class);
+    }
 }

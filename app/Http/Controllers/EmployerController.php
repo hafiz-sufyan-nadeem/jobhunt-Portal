@@ -27,7 +27,7 @@ class EmployerController extends Controller
     public function create()
     {
         if ($employers = Employer::where('user_id',auth()->user()->id)->first()) {
-            redirect()->route('employer.edit',['id'=> $employers->id]);
+           return redirect()->route('employer.edit',['employer'=> $employers->id]);
         }
         return view('employer.create');
     }
@@ -73,13 +73,13 @@ class EmployerController extends Controller
      */
     public function update(Request $request, Employer $employer)
     {
-        $data = $request->validate([
+        $validate = $request->validate([
             'company_name' => 'required',
             'city' => 'required',
             'description' => 'required',
         ]);
 
-        $employer->update($data);
+        $employer->update($validate);
 
         return redirect()
             ->route('employer.index')

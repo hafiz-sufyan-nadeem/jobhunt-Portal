@@ -29,6 +29,18 @@ Route::middleware(['auth', 'role:employer'])
         Route::patch('/update/{employer}', [EmployerController::class, 'update'])->name('update');
     });
 
+Route::middleware(['auth', 'role:employer'])
+    ->prefix('jobs')
+    ->name('jobs.')
+    ->group(function (){
+        Route::get('/index', [\App\Http\Controllers\JobListingController::class, 'index'])->name('index');
+        Route::get('/create', [\App\Http\Controllers\JobListingController::class, 'create'])->name('create');
+        Route::post('/store', [\App\Http\Controllers\JobListingController::class, 'store'])->name('store');
+        Route::get('/edit/{job}', [\App\Http\Controllers\JobListingController::class, 'edit'])->name('edit');
+        Route::patch('/update/{job}', [\App\Http\Controllers\JobListingController::class, 'update'])->name('update');
+        Route::delete('destroy/{job}', [\App\Http\Controllers\JobListingController::class, 'destroy'])->name('destroy');
+    });
+
 
 
 require __DIR__.'/auth.php';

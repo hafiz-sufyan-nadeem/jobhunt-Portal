@@ -30,7 +30,7 @@ class User extends Authenticatable
         ];
     }
 
-    public function emplyer()
+    public function employer()
     {
         return $this->hasOne(Employer::class);
     }
