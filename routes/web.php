@@ -42,5 +42,17 @@ Route::middleware(['auth', 'role:employer'])
     });
 
 
+Route::middleware(['auth', 'role:candidate'])
+    ->prefix('candidate')
+    ->name('candidate.')
+    ->group(function (){
+        Route::get('/index', [\App\Http\Controllers\CandidateController::class, 'index'])->name('index');
+        Route::get('/create', [\App\Http\Controllers\CandidateController::class, 'create'])->name('create');
+        Route::post('/store', [\App\Http\Controllers\CandidateController::class, 'store'])->name('store');
+        Route::get('/edit/{candidate}', [\App\Http\Controllers\CandidateController::class, 'edit'])->name('edit');
+        Route::patch('/update/{candidate}', [\App\Http\Controllers\CandidateController::class, 'update'])->name('update');
+        Route::delete('destroy/{candidate}', [\App\Http\Controllers\CandidateController::class, 'destroy'])->name('destroy');
+    });
+
 
 require __DIR__.'/auth.php';

@@ -1,4 +1,12 @@
 <x-guest-layout>
+
+    <div class="flex justify-end mb-4">
+        <a href="{{ route('register') }}"
+           class="px-4 py-2 bg-blue-500 text-black rounded bg-white">
+            Register
+        </a>
+    </div>
+
     <!-- Session Status -->
     <x-auth-session-status class="mb-4" :status="session('status')" />
 
