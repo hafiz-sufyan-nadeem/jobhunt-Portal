@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 
 class AdminController extends Controller
 {
+    // Admin Dashboard //
     public function dashboard()
     {
         $totalUsers = User::count();
@@ -18,6 +19,7 @@ class AdminController extends Controller
         return view('admin.dashboard', compact('totalUsers', 'totalJobs', 'totalApplications'));
     }
 
+//    Jobs listing with approval or rejection
     public function jobs()
     {
         $jobs = JobListing::all();
@@ -37,4 +39,13 @@ class AdminController extends Controller
         $job->save();
         return redirect()->route('admin.jobs');
     }
+
+//    Users listing
+
+    public function users()
+    {
+        $users = User::all();
+        return view('admin.users', compact('users'));
+    }
+
 }

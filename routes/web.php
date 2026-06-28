@@ -22,6 +22,8 @@ Route::middleware(['auth', 'role:admin'])
         Route::get('/jobs',[AdminController::class, 'jobs'])->name('jobs');
         Route::patch('/jobs/{job}/approve',[AdminController::class, 'approve'])->name('jobs.approve');
         Route::patch('/jobs/{job}/reject',[AdminController::class, 'reject'])->name('jobs.reject');
+
+        Route::get('/users',[AdminController::class, 'users'])->name('users');
     });
 
 
