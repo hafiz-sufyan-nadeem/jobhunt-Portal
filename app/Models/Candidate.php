@@ -18,4 +18,9 @@ class Candidate extends Model
     public function user(){
         return $this->belongsTo(User::class);
     }
+
+    public function applications()
+    {
+        return $this->hasMany(Application::class);
+    }
 }

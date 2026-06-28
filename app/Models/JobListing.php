@@ -27,4 +27,8 @@ class JobListing extends Model
     public function category(){
         return $this->belongsTo(JobCategory::class);
     }
+
+    public  function applications(){
+        return $this->hasMany(Application::class);
+    }
 }
