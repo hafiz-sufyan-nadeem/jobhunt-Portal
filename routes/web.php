@@ -62,6 +62,7 @@ Route::middleware(['auth', 'role:candidate'])
     ->prefix('applications')
     ->name('applications.')
     ->group(function(){
+        Route::get('/index', [\App\Http\Controllers\ApplicationController::class, 'index'])->name('index');
         Route::post('/store/{job}', [\App\Http\Controllers\ApplicationController::class, 'store'])->name('store');
     });
 

@@ -11,11 +11,26 @@ class HomeController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $jobs = JobListing::where('status', 'active')->get();
+        $jobs = JobListing::where('status', 'active')
+            ->when($request->search, function ($query) use ($request) {
+                $query->where('title', 'like', '%' . $request->search . '%');
+            })
+            ->when($request->city, function ($query) use ($request) {
+                $query->where('city', 'like', '%' . $request->city . '%');
+            })
+            ->when($request->type, function ($query) use ($request) {
+                $query->where('type', 'like', '%' . $request->type . '%');
+            })
+            ->when($request->category, function ($query) use ($request) {
+                $query->where('category_id', 'like', '%' . $request->category . '%');
+            })
+            ->get();
+
         return view('home', compact('jobs'));
     }
+
 
     /**
      * Show the form for creating a new resource.

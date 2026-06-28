@@ -14,7 +14,9 @@ class ApplicationController extends Controller
      */
     public function index()
     {
-        //
+        $candidate = auth()->user()->candidate;
+        $applications = $candidate->applications;
+        return view('application.index', compact('applications'));
     }
 
     /**

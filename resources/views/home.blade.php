@@ -22,6 +22,21 @@
     </nav>
 </div>
 
+<form action="{{ route('home') }}" method="GET">
+    <input type="text" name="search" placeholder="Search jobs...">
+
+    <input type="text" name="city" placeholder="City...">
+
+    <select name="type">
+        <option value="">All Types</option>
+        <option value="full-time">Full-time</option>
+        <option value="part-time">Part-time</option>
+        <option value="remote">Remote</option>
+    </select>
+
+    <button type="submit">Search</button>
+</form>
+
 <div class="container">
 @foreach($jobs as $job)
         <div>
