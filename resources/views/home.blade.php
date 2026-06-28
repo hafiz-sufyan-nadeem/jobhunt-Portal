@@ -29,6 +29,15 @@
             <p>{{ $job->city }}</p>
             <p>{{ $job->type }}</p>
             <p>{{ $job->salary_range }}</p>
+
+            @auth
+                @if(auth()->user()->role === 'candidate')
+                    <form action="{{ route('applications.store', $job->id) }}" method="POST">
+                        @csrf
+                        <button type="submit">Apply</button>
+                    </form>
+                @endif
+            @endauth
         </div>
 @endforeach
 </div>

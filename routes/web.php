@@ -58,4 +58,12 @@ Route::middleware(['auth', 'role:candidate'])
     });
 
 
+Route::middleware(['auth', 'role:candidate'])
+    ->prefix('applications')
+    ->name('applications.')
+    ->group(function(){
+        Route::post('/store/{job}', [\App\Http\Controllers\ApplicationController::class, 'store'])->name('store');
+    });
+
+
 require __DIR__.'/auth.php';
