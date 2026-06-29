@@ -44,6 +44,9 @@ Route::middleware(['auth', 'role:employer'])
         Route::post('/store', [EmployerController::class, 'store'])->name('store');
         Route::get('/edit/{employer}', [EmployerController::class, 'edit'])->name('edit');
         Route::patch('/update/{employer}', [EmployerController::class, 'update'])->name('update');
+
+        Route::get('/applications', [\App\Http\Controllers\ApplicationController::class, 'employerIndex'])->name('applications');
+        Route::patch('/applications/{application}/status', [\App\Http\Controllers\ApplicationController::class, 'updateStatus'])->name('application.status');
     });
 
 Route::middleware(['auth', 'role:employer'])

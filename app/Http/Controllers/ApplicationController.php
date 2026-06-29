@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Application;
 use App\Models\Candidate;
+use App\Models\Employer;
 use App\Models\JobListing;
 use Illuminate\Http\Request;
 
@@ -19,17 +20,9 @@ class ApplicationController extends Controller
         return view('application.index', compact('applications'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
 
-    /**
-     * Store a newly created resource in storage.
-     */
+
+//     * Store a newly created resource in storage.
     public function store(Request $request, JobListing $job)
     {
         $candidates = Candidate::where('user_id',auth()->user()->id)->first();
@@ -52,35 +45,24 @@ class ApplicationController extends Controller
         return redirect()->back()->with('success', 'Application submitted successfully!');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
+    public function employerIndex()
     {
-        //
+        $employer = auth()->user()->employer;
+        $applications = Application::whereHas('job', function($query) use ($employer){
+            $query->where('employer_id', $employer->id);
+        })->get();
+
+        return view('employer.applications', compact('applications'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
+    public function updateStatus(Request $request, Application $application)
     {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
+        $request->validate([
+            'status' => 'required|in:reviewed,shortlisted,hired,rejected',
+        ]);
+        $application->update([
+            'status' => $request->status
+        ]);
+        return back()->with('success', 'Application updated successfully!');
     }
 }
