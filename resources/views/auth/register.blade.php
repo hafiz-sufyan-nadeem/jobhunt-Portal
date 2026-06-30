@@ -1,59 +1,107 @@
-<x-guest-layout>
-    <form method="POST" action="{{ route('register') }}">
-        @csrf
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register — JobHunt</title>
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
+</head>
+<body class="min-h-screen flex items-center justify-center bg-gray-950">
 
-        <!-- Name -->
-        <div>
-            <x-input-label for="name" :value="__('Name')" />
-            <x-text-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')" required autofocus autocomplete="name" />
-            <x-input-error :messages="$errors->get('name')" class="mt-2" />
-        </div>
+<div class="w-full max-w-md mx-auto px-4">
 
-        <!-- Email Address -->
-        <div class="mt-4">
-            <x-input-label for="email" :value="__('Email')" />
-            <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autocomplete="username" />
-            <x-input-error :messages="$errors->get('email')" class="mt-2" />
-        </div>
+    {{-- Logo --}}
+    <div class="text-center mb-8">
+        <a href="{{ route('home') }}" class="text-3xl font-bold text-blue-600">💼 JobHunt</a>
+        <p class="text-gray-400 mt-2 text-xl">Welcome</p>
+    </div>
 
-        <!-- Password -->
-        <div class="mt-4">
-            <x-input-label for="password" :value="__('Password')" />
+    {{-- Card --}}
+    <div class="bg-white rounded-2xl shadow-md p-8">
+        <h2 class="text-2xl font-semibold text-gray-800 mb-6">Register</h2>
 
-            <x-text-input id="password" class="block mt-1 w-full"
-                            type="password"
-                            name="password"
-                            required autocomplete="new-password" />
+        <form method="POST" action="{{ route('register') }}">
+            @csrf
 
-            <x-input-error :messages="$errors->get('password')" class="mt-2" />
-        </div>
+            <div class="mb-4">
+                <label class="block text-sm font-medium text-gray-700 mb-1">Name</label>
+                <input
+                    type="text"
+                    name="name"
+                    value="{{ old('name') }}"
+                    required
+                    class="w-full px-4 py-3 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-white text-white"
+                    placeholder="enter your name"
+                >
 
-        <!-- Confirm Password -->
-        <div class="mt-4">
-            <x-input-label for="password_confirmation" :value="__('Confirm Password')" />
+            {{-- Email --}}
+            <div class="mb-4">
+                <label class="block text-sm font-medium text-gray-700 mb-1">Email</label>
+                <input
+                    type="email"
+                    name="email"
+                    value="{{ old('email') }}"
+                    required
+                    class="w-full px-4 py-3 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-white text-white"
+                    placeholder="you@example.com"
+                >
+                @error('email')
+                <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
+                @enderror
+            </div>
 
-            <x-text-input id="password_confirmation" class="block mt-1 w-full"
-                            type="password"
-                            name="password_confirmation" required autocomplete="new-password" />
+            {{-- Password --}}
+                <div class="mb-4">
+                <label class="block text-sm font-medium text-gray-700 mb-1">Password</label>
+                <input
+                    type="password"
+                    name="password"
+                    required
+                    class="w-full px-4 py-3 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-300 text-white"
+                    placeholder="••••••••"
+                >
+                @error('password')
+                <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
+                @enderror
+            </div>
 
-            <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
-        </div>
+                <div class="mb-4">
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Confirm Password</label>
+                    <input
+                        type="password"
+                        name="password_confirmation"
+                        required
+                        class="w-full px-4 py-3 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-300 text-white"
+                        placeholder="••••••••"
+                    >
+                    @error('confirm password')
+                    <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
+                    @enderror
+                </div>
 
-        <div class="mt-2">
-            <select class="rounded rounded-3xl" name="role">
-                <option value="employer">Employer</option>
-                <option value="candidate">Candidate</option>
-            </select>
-        </div>
+                <div class="mb-4">
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Register As</label>
+                    <select name="role" class="w-full px-4 py-3 border border-gray-200 rounded-lg text-white">
+                        <option value="employer">Employer</option>
+                        <option value="candidate">Candidate</option>
+                    </select>
+                </div>
 
-        <div class="flex items-center justify-end mt-4">
-            <a class="underline text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-800" href="{{ route('login') }}">
-                {{ __('Already registered?') }}
-            </a>
+            {{-- Submit --}}
+            <button type="submit" class="w-full py-3 bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-700 transition">
+                Register →
+            </button>
+            </div>
+        </form>
+    </div>
 
-            <x-primary-button class="ms-4">
-                {{ __('Register') }}
-            </x-primary-button>
-        </div>
-    </form>
-</x-guest-layout>
+    {{-- Register Link --}}
+    <p class="text-center text-gray-400 text-sm mt-6">
+        Already have account?
+        <a href="{{ route('login') }}" class="text-blue-500 hover:underline font-medium">Login here</a>
+    </p>
+
+</div>
+
+</body>
+</html>
