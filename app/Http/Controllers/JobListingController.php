@@ -10,9 +10,14 @@ class JobListingController extends Controller
 {
     public function index()
     {
-        $jobs = JobListing::where('employer_id', auth()->user()->employer->id)->get();
-        return view('jobs.index', compact('jobs'));
+        $employer = auth()->user()->employer;
+        if(!$employer){
+            return redirect()->route('employer.create')
+                ->with('error', 'Please complete your company profile first.');
+        }
 
+        $jobs = JobListing::where('employer_id', $employer->id)->get();
+        return view('jobs.index', compact('jobs'));
     }
 
     public function create()

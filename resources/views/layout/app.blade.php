@@ -6,10 +6,10 @@
     <title>@yield('title') — JobHunt</title>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
-<body class="bg-gray-50 min-h-screen">
+<body class="bg-gray-950 min-h-screen">
 
 {{-- Navbar --}}
-<nav class="bg-white shadow-md fixed w-full z-20 top-0">
+<nav class="bg-gray-950 shadow-md fixed w-full z-20 top-0">
     <div class="max-w-screen-xl mx-auto px-4 py-3 flex justify-between items-center">
         <a href="{{ route('home') }}" class="text-2xl font-bold text-blue-600">💼 JobHunt</a>
         <div class="flex items-center gap-3">
