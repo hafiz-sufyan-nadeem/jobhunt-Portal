@@ -49,13 +49,11 @@ class ApplicationController extends Controller
     {
         $employer = auth()->user()->employer;
 
-        if(!$employer){
-            return redirect()->route('employer.create')
-                ->with('error', 'Please complete your company profile first.');
-        }
+        $applications = Application::whereHas('job', function($query) use ($employer){
+            $query->where('employer_id', $employer->id);
+        })->get();
 
-        $jobs = JobListing::where('employer_id', $employer->id)->get();
-        return view('jobs.index', compact('jobs'));
+        return view('employer.applications', compact('applications'));
     }
 
     public function updateStatus(Request $request, Application $application)

@@ -3,11 +3,33 @@
 @section('title', 'Home')
 
 @section('nav-links')
+    @auth()
+    <span class="text-gray-600 text-sm hidden md:block">
+            Hi, {{ auth()->user()->name }}
+        </span>
+    @endauth
+
+    <a href="{{ route('applications.index') }}"
+       class="px-4 py-2 border border-blue-500 text-white hover:bg-blue-500 rounded-lg text-sm">
+        My Applications
+    </a>
     @auth
-        <a href="/logout" class="px-4 py-2 bg-red-500 text-white rounded-lg text-sm">Logout</a>
+        <form method="POST" action="{{ route('logout') }}">
+            @csrf
+            <button type="submit" class="px-4 py-2 bg-red-500 text-white rounded-lg text-sm">
+                Logout
+            </button>
+        </form>
     @else
-        <a href="/login" class="px-4 py-2 border border-blue-500 text-blue-500 rounded-lg text-sm">Login</a>
-        <a href="/register" class="px-4 py-2 bg-blue-600 text-white rounded-lg text-sm">Register</a>
+        <a href="{{ route('login') }}"
+           class="px-4 py-2 border border-blue-500 text-blue-500 rounded-lg text-sm">
+            Login
+        </a>
+
+        <a href="{{ route('register') }}"
+           class="px-4 py-2 bg-blue-600 text-white rounded-lg text-sm">
+            Register
+        </a>
     @endauth
 @endsection
 

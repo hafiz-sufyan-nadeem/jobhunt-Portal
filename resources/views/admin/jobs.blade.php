@@ -7,7 +7,6 @@
             <th>Status</th>
         </tr>
         </thead>
-
         <tbody>
         @foreach($jobs as $job)
         <tr>
