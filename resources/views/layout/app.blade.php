@@ -19,6 +19,22 @@
 </nav>
 
 {{-- Main Content --}}
+
+{{--Flash msg--}}
+<div class="max-w-6xl mx-auto px-4 pt-20">
+    @if(session('success'))
+        <div class="bg-green-950 text-green-400 border border-green-800 px-4 py-3 rounded-lg text-sm mb-4">
+            {{ session('success') }}
+        </div>
+    @endif
+
+    @if(session('error'))
+        <div class="bg-red-950 text-red-400 border border-red-800 px-4 py-3 rounded-lg text-sm mb-4">
+            {{ session('error') }}
+        </div>
+    @endif
+</div>
+
 <div class="pt-16">
     @yield('content') {{-- har page ka content yahan aayega --}}
 </div>

@@ -47,7 +47,7 @@ class JobListingController extends Controller
         $validate ['employer_id'] = $employer->id;
         JobListing::create($validate);
 
-        return redirect()->route('jobs.create')
+        return redirect()->route('jobs.index')
             ->with('success', 'Job posted successfully!');
     }
 
