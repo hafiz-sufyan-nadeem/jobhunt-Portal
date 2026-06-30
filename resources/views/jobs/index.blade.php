@@ -31,6 +31,7 @@
                     <th class="text-left text-xs font-medium text-gray-500 uppercase px-4 py-3">Job Title</th>
                     <th class="text-left text-xs font-medium text-gray-500 uppercase px-4 py-3">Type</th>
                     <th class="text-left text-xs font-medium text-gray-500 uppercase px-4 py-3">City</th>
+                    <th class="text-left text-xs font-medium text-gray-500 uppercase px-4 py-3">Salary</th>
                     <th class="text-left text-xs font-medium text-gray-500 uppercase px-4 py-3">Status</th>
                     <th class="text-left text-xs font-medium text-gray-500 uppercase px-4 py-3">Actions</th>
                 </tr>
@@ -41,6 +42,7 @@
                         <td class="px-4 py-3 text-sm text-gray-700">{{ $job->title }}</td>
                         <td class="px-4 py-3 text-sm text-gray-500">{{ $job->type }}</td>
                         <td class="px-4 py-3 text-sm text-gray-500">{{ $job->city }}</td>
+                        <td class="px-4 py-3 text-sm text-gray-500">{{ $job->salary_range }}</td>
                         <td class="px-4 py-3 text-sm">
                     <span class="px-2 py-1 rounded-full text-xs font-medium {{ $job->status == 'active' ? 'bg-green-50 text-green-600' : 'bg-red-50 text-red-600' }}">
                         {{ $job->status }}

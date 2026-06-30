@@ -56,7 +56,8 @@ class JobListingController extends Controller
         if ($job->employer_id !== auth()->user()->employer->id) {
             abort(403);
     }
-    return view('jobs.edit', compact('job'));
+        $categories = JobCategory::all();
+        return view('jobs.edit', compact('job', 'categories'));
     }
 
     public function update(Request $request, JobListing $job)
