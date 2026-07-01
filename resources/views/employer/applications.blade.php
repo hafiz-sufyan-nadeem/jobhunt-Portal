@@ -29,6 +29,7 @@
                     <tr>
                         <th class="text-left text-xs font-medium text-gray-400 uppercase px-4 py-3">Candidate</th>
                         <th class="text-left text-xs font-medium text-gray-400 uppercase px-4 py-3">Job Title</th>
+                        <th class="text-left text-xs font-medium text-gray-400 uppercase px-4 py-3">Resume</th>
                         <th class="text-left text-xs font-medium text-gray-400 uppercase px-4 py-3">Status</th>
                         <th class="text-left text-xs font-medium text-gray-400 uppercase px-4 py-3">Actions</th>
                     </tr>
@@ -38,6 +39,19 @@
                         <tr class="border-t border-gray-800">
                             <td class="px-4 py-3 text-sm text-gray-200">{{ $application->candidate->user->name }}</td>
                             <td class="px-4 py-3 text-sm text-gray-400">{{ $application->job->title }}</td>
+
+                            <td class="px-4 py-3 text-sm">
+                                @if($application->candidate->resume)
+                                    <a href="{{ asset('storage/' . $application->candidate->resume) }}"
+                                       target="_blank"
+                                       class="text-indigo-400 hover:underline text-xs">
+                                        📄 View CV
+                                    </a>
+                                @else
+                                    <span class="text-gray-600 text-xs">No CV</span>
+                                @endif
+                            </td>
+
                             <td class="px-4 py-3 text-sm">
                             <span class="px-2 py-1 rounded-full text-xs font-medium
                                 @if($application->status == 'pending') bg-gray-700 text-gray-300
