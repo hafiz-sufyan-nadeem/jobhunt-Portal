@@ -99,17 +99,10 @@
                             </span>
                         </div>
 
-                        @auth
-                            @if(auth()->user()->role === 'candidate')
-                                <form action="{{ route('applications.store', $job->id) }}" method="POST">
-                                    @csrf
-                                    <button type="submit"
-                                            class="w-full border border-indigo-600 text-indigo-400 text-sm font-semibold py-2 rounded-lg hover:bg-indigo-600 hover:text-white transition">
-                                        Apply Now →
-                                    </button>
-                                </form>
-                            @endif
-                        @endauth
+                        <a href="{{ route('jobs.show', $job->id) }}"
+                           class="w-full block text-center border border-indigo-600 text-indigo-400 text-sm font-semibold py-2 rounded-lg hover:bg-indigo-600 hover:text-white transition">
+                            View Details →
+                        </a>
 
                     </div>
 
