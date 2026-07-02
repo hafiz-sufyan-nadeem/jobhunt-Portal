@@ -35,6 +35,10 @@ Route::middleware('auth')->group(function () {
 
 Route::get('/',[HomeController::class,'index'])->name('home');
 
+Route::get('/employer', function(){
+    return redirect()->route('employer.index');
+})->middleware(['auth', 'role:employer']);
+
 Route::middleware(['auth', 'role:employer'])
     ->prefix('employer')
     ->name('employer.')
