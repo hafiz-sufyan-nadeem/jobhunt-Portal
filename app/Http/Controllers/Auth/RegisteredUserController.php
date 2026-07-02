@@ -51,6 +51,15 @@ class RegisteredUserController extends Controller
         if(auth()->user()->role === 'employer'){
             return redirect()->route('employer.create');
         }
+
+        if(auth()->user()->role === 'candidate'){
+            return redirect()->route('home');
+        }
+
+        if(auth()->user()->role === 'admin'){
+            return redirect()->route('admin.dashboard');
+        }
+
         return redirect()->route('dashboard');
     }
 }
