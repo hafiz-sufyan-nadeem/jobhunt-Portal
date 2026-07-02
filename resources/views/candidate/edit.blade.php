@@ -6,6 +6,7 @@
     @auth
         <span class="text-gray-600 text-sm hidden md:block">Hi, {{ auth()->user()->name }}</span>
         <a href="{{ route('applications.index') }}" class="px-4 py-2 border border-blue-500 text-white hover:bg-blue-500 rounded-lg text-sm">My Applications</a>
+        <a href="{{ route('home') }}" class="px-4 py-2 border border-gray-600 text-white hover:bg-gray-800 rounded-lg text-sm">Home</a>
         <form method="POST" action="{{ route('logout') }}">
             @csrf
             <button type="submit" class="px-4 py-2 bg-red-500 text-white rounded-lg text-sm">Logout</button>

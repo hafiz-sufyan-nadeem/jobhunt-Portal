@@ -31,6 +31,10 @@ class ApplicationController extends Controller
     {
         $candidates = Candidate::where('user_id',auth()->user()->id)->first();
 
+        if(!$candidates){
+            return redirect()->route('candidate.create')
+                ->with('error', 'Please create your profile first before applying!');
+        }
         // Check if the candidate already applied for this job
         $alreadyApplied = Application::where('candidate_id', $candidates->id)
             ->where('job_id', $job->id)

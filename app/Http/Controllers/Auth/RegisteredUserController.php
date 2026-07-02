@@ -53,7 +53,7 @@ class RegisteredUserController extends Controller
         }
 
         if(auth()->user()->role === 'candidate'){
-            return redirect()->route('home');
+            return redirect()->route('candidate.create');
         }
 
         if(auth()->user()->role === 'admin'){
