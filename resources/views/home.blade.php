@@ -3,33 +3,28 @@
 @section('title', 'Home')
 
 @section('nav-links')
-    @auth()
-    <span class="text-gray-600 text-sm hidden md:block">
-            Hi, {{ auth()->user()->name }}
-        </span>
-    @endauth
-
-    <a href="{{ route('applications.index') }}"
-       class="px-4 py-2 border border-blue-500 text-white hover:bg-blue-500 rounded-lg text-sm">
-        My Applications
-    </a>
     @auth
+        <span class="text-gray-600 text-sm hidden md:block">Hi, {{ auth()->user()->name }}</span>
+
+        @if(auth()->user()->role === 'employer')
+            <a href="{{ route('employer.index') }}" class="px-4 py-2 border border-blue-500 text-white hover:bg-blue-500 rounded-lg text-sm">Dashboard</a>
+            <a href="{{ route('jobs.index') }}" class="px-4 py-2 border border-blue-500 text-white hover:bg-blue-500 rounded-lg text-sm">My Jobs</a>
+            <a href="{{ route('employer.applications') }}" class="px-4 py-2 border border-blue-500 text-white hover:bg-blue-500 rounded-lg text-sm">Applications</a>
+        @elseif(auth()->user()->role === 'candidate')
+            <a href="{{ route('candidate.index') }}" class="px-4 py-2 border border-blue-500 text-white hover:bg-blue-500 rounded-lg text-sm">My Profile</a>
+            <a href="{{ route('applications.index') }}" class="px-4 py-2 border border-blue-500 text-white hover:bg-blue-500 rounded-lg text-sm">My Applications</a>
+        @elseif(auth()->user()->role === 'admin')
+            <a href="{{ route('admin.dashboard') }}" class="px-4 py-2 border border-blue-500 text-white hover:bg-blue-500 rounded-lg text-sm">Admin Panel</a>
+        @endif
+
         <form method="POST" action="{{ route('logout') }}">
             @csrf
-            <button type="submit" class="px-4 py-2 bg-red-500 text-white rounded-lg text-sm">
-                Logout
-            </button>
+            <button type="submit" class="px-4 py-2 bg-red-500 text-white rounded-lg text-sm">Logout</button>
         </form>
-    @else
-        <a href="{{ route('login') }}"
-           class="px-4 py-2 border border-blue-500 text-blue-500 rounded-lg text-sm">
-            Login
-        </a>
 
-        <a href="{{ route('register') }}"
-           class="px-4 py-2 bg-blue-600 text-white rounded-lg text-sm">
-            Register
-        </a>
+    @else
+        <a href="{{ route('login') }}" class="px-4 py-2 border border-blue-500 text-blue-500 rounded-lg text-sm">Login</a>
+        <a href="{{ route('register') }}" class="px-4 py-2 bg-blue-600 text-white rounded-lg text-sm">Register</a>
     @endauth
 @endsection
 
