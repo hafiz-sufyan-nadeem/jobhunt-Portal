@@ -8,9 +8,9 @@ use App\Models\Employer;
 use App\Models\JobListing;
 use Illuminate\Http\Request;
 
+use App\Mail\ApplicationStatusMail;
 use App\Mail\JobApplicationMail;
 use Illuminate\Support\Facades\Mail;
-use App\Mail\ApplicationStatusMail;
 
 class ApplicationController extends Controller
 {
@@ -71,15 +71,19 @@ class ApplicationController extends Controller
     public function updateStatus(Request $request, Application $application)
     {
         $request->validate([
-            'status' => 'required|in:reviewed,interviewing,hired,rejected',
+            'status' => 'required|in:reviewed,shortlisted,hired,rejected',
         ]);
+
         $application->update([
             'status' => $request->status
         ]);
 
-
-        Mail::to($application->candidate->user->email)
-            ->send(new ApplicationStatusMail($application));
+        try {
+            Mail::to($application->candidate->user->email)
+                ->send(new ApplicationStatusMail($application));
+        } catch (\Exception $e) {
+            // mail fail ho to bhi redirect hoga
+        }
 
         return back()->with('success', 'Application updated successfully!');
     }
