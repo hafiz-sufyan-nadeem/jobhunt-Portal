@@ -87,5 +87,7 @@ Route::middleware(['auth', 'role:candidate'])
         Route::post('/store/{job}', [\App\Http\Controllers\ApplicationController::class, 'store'])->name('store');
     });
 
+Route::get('/jobs/{job}', [HomeController::class, 'show'])->name('jobs.show');
+
 
 require __DIR__.'/auth.php';

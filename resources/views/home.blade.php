@@ -84,9 +84,9 @@
 
                         <p>{{ $job->employer->company_name }}</p>
 
-                        <h3 class="text-base font-bold text-gray-100 mb-2 leading-snug">
-                            {{ $job->title }}
-                        </h3>
+                        <a href="{{ route('jobs.show', $job->id) }}">
+                            <h3 class="text-base font-bold text-gray-100 mb-2">{{ $job->title }}</h3>
+                        </a>
 
                         <p class="text-sm text-gray-400 mb-4">📍 {{ $job->city }}</p>
 
